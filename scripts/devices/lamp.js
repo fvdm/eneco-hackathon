@@ -11,16 +11,24 @@ define('devices/lamp', [], function(){
         this.state = state || false;
     }
 
+    /**
+     * Turn on the light
+     * @returns {Promise}
+     */
     Lamp.prototype.on = function(){
         var api = require('eneco/toon');
         this.state = true;
-        api.lamps.set(this);
+        return api.lamps.set(this);
     };
 
+    /**
+     * Turn off the light
+     * @returns {Promise}
+     */
     Lamp.prototype.off = function(){
         var api = require('eneco/toon');
         this.state = false;
-        api.lamps.set(this);
+        return api.lamps.set(this);
     };
 
     return Lamp;

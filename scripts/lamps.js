@@ -13,7 +13,7 @@ define('lamps', ['eneco/toon', 'devices/lamp'], function(toon, Lamp){
             lamps.push(new Lamp('b2-haet-0483:happ_smartplug_644EAC423D7'));
         });
 
-    return {
+    var exports = {
         turnOn: function(index){
             if(typeof index === 'number'){
                 if(lamps[index]){
@@ -30,6 +30,24 @@ define('lamps', ['eneco/toon', 'devices/lamp'], function(toon, Lamp){
             lamps.forEach(function(lamp){
                 lamp.off();
             });
+        },
+
+        // Ugly animation but it's what you have for now
+        _timeout: null,
+        startAnimation: function(){
+            if(exports._timeout) clearTimeout(exports._timeout);
+
+            exports.turnOn();
+            exports._timeout = setTimeout(function(){
+                exports.turnOff();
+                exports._timeout = setTimeout(exports.startAnimation, 3000);
+            }, 1000);
+        },
+        stopAnimation: function(){
+            if(exports._timeout) clearTimeout(exports._timeout);
+            exports.turnOff();
         }
     };
+
+    return exports;
 });

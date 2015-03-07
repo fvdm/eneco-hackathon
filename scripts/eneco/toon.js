@@ -5,6 +5,7 @@ define('eneco/toon', [
     ], function(config, parser, Lamp){
     'use strict';
 
+    // TODO: Authentication, avoid token
     function send(params){
         return new Promise(function(fulfill, reject){
             params.method = params.method || 'GET';
@@ -22,12 +23,8 @@ define('eneco/toon', [
             xhr.onerror = reject;
             xhr.open(params.method, config.endpoint + params.path);
             xhr.setRequestHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
-            // TODO: remove token from here
             xhr.setRequestHeader('Authorization', 'Bearer ' + config.authToken);
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // xhr.setRequestHeader("Content-type", "application/json, text/javascript, */*; q=0.01");
-
-            // TODO: remove data from here
             xhr.send(params.data);
         });
     }
@@ -58,15 +55,20 @@ define('eneco/toon', [
                 });
             },
 
+            /*
+             * @param {Lamp} lamp
+             */
             set: function(lamp){
                 return send({
                     method: 'POST',
                     path: 'smartplug/setTarget',
+                    // TODO: send object here
                     data: parser.toUrlEnc(
                         {
                             devUuid : lamp.id,
                             state: lamp.state ? 1 : 0
-                        })
+                        }
+                    )
                 });
             }
         }

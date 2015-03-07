@@ -19,11 +19,17 @@ define('main', ['lamps'], function(lamps){
             });
     }
 
-    attach(['#hotspot-2611336', '#hotspot-2611563'],
+    attach(['#hotspot-2611563'],
         'click', lamps.turnOn);
 
-    attach(['#hotspot-2611337', '#hotspot-2612230'],
+    attach(['#hotspot-2612230'],
         'click', lamps.turnOff);
+
+    attach(['#hotspot-2611336'],
+        'click', lamps.startAnimation);
+
+    attach(['#hotspot-2611337'],
+        'click', lamps.stopAnimation);
 
     // Too hacky:
     setTimeout(function(){
