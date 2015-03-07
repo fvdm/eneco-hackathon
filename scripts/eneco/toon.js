@@ -36,14 +36,13 @@ define('eneco/toon', [
                 // body...
             },
 
-            set: function(value, callback){
-                // TODO: remove hardcoded ID from here
+            set: function(lamp, callback){
                 send(
                     'smartplug/setTarget',
                     parser.toUrlEnc(
                         {
-                            devUuid : 'b2-haet-0483:happ_smartplug_644EAC423D7',
-                            state: value ? 1 : 0
+                            devUuid : lamp.id,
+                            state: lamp.state ? 1 : 0
                         }),
                     callback);
             }

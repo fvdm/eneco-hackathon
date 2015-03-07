@@ -8,12 +8,12 @@ define('lamps', ['eneco/toon'], function(toon){
 
     Lamp.prototype.on = function(){
         this.state = true;
-        toon.lamps.set(this.state);
+        toon.lamps.set(this);
     };
 
     Lamp.prototype.off = function(){
         this.state = false;
-        toon.lamps.set(this.state);
+        toon.lamps.set(this);
     };
 
     var lamp = new Lamp('b2-haet-0483:happ_smartplug_644EAC423D7');
