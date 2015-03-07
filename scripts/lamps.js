@@ -1,30 +1,39 @@
-define('lamps', ['eneco/toon'], function(toon){
+define('lamps', ['eneco/toon', 'devices/lamp'], function(toon, Lamp){
     'use strict';
 
-    function Lamp(id, state) {
-        this.id = id;
-        this.state = state || false;
-    }
+    var lamps = [];
 
-    Lamp.prototype.on = function(){
-        this.state = true;
-        toon.lamps.set(this);
-    };
 
-    Lamp.prototype.off = function(){
-        this.state = false;
-        toon.lamps.set(this);
-    };
+    toon.lamps.list().then(
+        function(response){
+            debugger;
+            lamps = response;
 
-    var lamp = new Lamp('b2-haet-0483:happ_smartplug_644EAC423D7');
+            console.log('list: ', arguments);
+        },
+        function(){
+            debugger;
+            // Hacky: default lamp if fails to get all of them
+            lamps.push(new Lamp('b2-haet-0483:happ_smartplug_644EAC423D7'));
+        });
 
     return {
-        turnOn: function(){
-            lamp.on();
+        turnOn: function(index){
+            if(typeof index === 'number'){
+                if(lamps[index]){
+                    lamps[index].on();
+                }
+            }else{
+                lamps.forEach(function(lamp){
+                    lamp.on();
+                });
+            }
         },
 
-        turnOff: function () {
-            lamp.off();
+        turnOff: function (index) {
+            lamps.forEach(function(lamp){
+                lamp.off();
+            });
         }
     };
 });
