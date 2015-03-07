@@ -8,7 +8,9 @@ define('main', ['lamps'], function(lamps){
     * The following code may hurt your feelings ;P
     */
 
-    function attach(selectors, eventType, callback){
+    function attach(callback, selectors, eventType){
+        eventType = eventType || 'click';
+
         if(!(selectors instanceof Array)){
             selectors = [selectors];
         }
@@ -19,18 +21,17 @@ define('main', ['lamps'], function(lamps){
             });
     }
 
-    attach(['#hotspot-2611563'],
-        'click', lamps.turnOn);
+    /*
+     * Hocking up the design
+     */
+    attach(lamps.turnOn, ['#hotspot-2611563']);
+    attach(lamps.turnOff, ['#hotspot-2612230']);
+    attach(lamps.startAnimation, ['#hotspot-2611336']);
+    attach(lamps.stopAnimation, ['#hotspot-2611337']);
 
-    attach(['#hotspot-2612230'],
-        'click', lamps.turnOff);
-
-    attach(['#hotspot-2611336'],
-        'click', lamps.startAnimation);
-
-    attach(['#hotspot-2611337'],
-        'click', lamps.stopAnimation);
-
+    /*
+     * Calendar iframe
+     */
     // Too hacky:
     setTimeout(function(){
         var target = document.getElementById('2590764').querySelector('.box-inner'),
