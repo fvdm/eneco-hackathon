@@ -1,4 +1,4 @@
-define('main', ['lamps'], function(lamps){
+define('main', ['lamps', 'widgets/countdown'], function(lamps, Countdown){
    'use strict';
 
    /*
@@ -28,6 +28,11 @@ define('main', ['lamps'], function(lamps){
     attach(lamps.turnOff, ['#hotspot-2612230']);
     attach(lamps.startAnimation, ['#hotspot-2611336']);
     attach(lamps.stopAnimation, ['#hotspot-2611337']);
+
+    /*
+     * Countdown
+     */
+    new Countdown(document.getElementById('hotspot-2613307'));
 
     /*
      * Calendar iframe
