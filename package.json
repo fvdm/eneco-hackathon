@@ -1,0 +1,29 @@
+{
+  "name": "Eneco-hackathon-prototype",
+  "version": "1.0.0",
+  "description": "",
+  "main": "data.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/baleato/eneco-hackathon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/baleato/eneco-hackathon/issues"
+  },
+  "homepage": "https://github.com/baleato/eneco-hackathon",
+  "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-jasmine": "^0.3.5",
+    "karma-requirejs": "^0.2.2",
+    "requirejs": "^2.1.16"
+  }
+}
