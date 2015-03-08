@@ -1,8 +1,7 @@
 define('main',
     ['lamps', 'widgets/countdown', 'google/auth', 'google/calendar'],
     function(lamps, Countdown, gAuth, gCal){
-
-   'use strict';
+    'use strict';
 
    /*
     * Before you keep looking... be aware that this is a hackathon
@@ -30,7 +29,7 @@ define('main',
     attach(lamps.turnOn, ['#hotspot-2611563']);
     attach(lamps.turnOff, ['#hotspot-2612230']);
     attach(lamps.startAnimation, ['#hotspot-2611336']);
-    attach(lamps.stopAnimation, ['#hotspot-2611337']);
+    attach(lamps.stopAnimation, ['#hotspot-2611337', '#hotspot-2614947']);
 
     /*
      * Google API
@@ -67,8 +66,8 @@ define('main',
                             .then(
                                 function(){
                                     lamps.startAnimation();
-                                    // TODO: We need a screen to dismiss the alarm
-                                    window.location.href = window.location.href.replace(/#\d*$/, '#2590601');
+                                    // Redirect to dismiss-alert screen
+                                    window.location.href = window.location.href.replace(/#\d*$/, '#2592674');
                                     setCountdownToNextEvent();
                                 });
                     }
@@ -90,6 +89,6 @@ define('main',
             target.firstElementChild.style.display = "none";
             target.innerHTML = iframeHtml + target.innerHTML;
         });
-    }, 1000)
+    }, 1000);
 
 });
