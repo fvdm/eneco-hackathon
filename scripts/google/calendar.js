@@ -53,16 +53,22 @@ define('google/calendar', ['google/auth'], function(gAuth){
                                 var result = JSON.parse(response.body),
                                     events = result.items,
                                     i = 0,
-                                    event;
+                                    event = events[0];
 
                                 function hasAlreadyStarted(event){
-                                    console.log('hasAlreadyStarted?', event, new Date(event.start.dateTime).getTime() <= Date.now());
                                     return new Date(event.start.dateTime).getTime() <= Date.now();
                                 }
 
-                                do{
+                                function isDatetimeEvent(event){
+                                    return event.start.hasOwnProperty('dateTime');
+                                }
+
+
+                                while(event &&
+                                        (hasAlreadyStarted(event) ||
+                                            !isDatetimeEvent(event))){
                                     event = events[i++];
-                                }while(event && hasAlreadyStarted(event));
+                                }
 
                                 fulfill(event || null);
                             },
