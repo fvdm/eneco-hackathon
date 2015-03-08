@@ -1,4 +1,4 @@
-define('widgets/countdown', [], function(){
+define('widgets/countdown', ['utils/formatter'], function(format){
     'use strict';
 
     function Countdown(dom){
@@ -7,19 +7,6 @@ define('widgets/countdown', [], function(){
         this._countdown.innerText = '00:00:00';
         dom.appendChild(this._countdown);
         dom.className += ' countdown-container';
-    }
-
-    // TODO: move to utils
-    function format(millis){
-        var seconds = parseInt(millis/1000, 10),
-            ss = seconds % 60,
-            mm = parseInt(seconds % 3600 / 60, 10),
-            hh = parseInt(seconds / 3600, 10);
-
-            if(ss < 10) ss = '0'+ss;
-            if(mm < 10) mm = '0'+mm;
-
-        return [hh, ':', mm, ':', ss].join('');
     }
 
     Countdown.prototype.start = function(until){
@@ -32,10 +19,10 @@ define('widgets/countdown', [], function(){
                 var millis = until.getTime() - Date.now();
                 if(millis < 0){
                     clearInterval(interval);
-                    that._countdown.innerText = format(0);
+                    that._countdown.innerText = format.time(0);
                     fulfill();
                 }else{
-                    that._countdown.innerText = format(millis);
+                    that._countdown.innerText = format.time(millis);
                 }
             }
         });

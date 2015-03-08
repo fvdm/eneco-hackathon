@@ -90,6 +90,6 @@ define('main',
             target.firstElementChild.style.display = "none";
             target.innerHTML = iframeHtml + target.innerHTML;
         });
-    }, 1000)
+    }, 1000);
 
 });
