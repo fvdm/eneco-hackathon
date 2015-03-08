@@ -1,4 +1,7 @@
-define('main', ['lamps', 'widgets/countdown'], function(lamps, Countdown){
+define('main',
+    ['lamps', 'widgets/countdown', 'google/auth', 'google/calendar'],
+    function(lamps, Countdown, gAuth, gCal){
+
    'use strict';
 
    /*
@@ -30,9 +33,47 @@ define('main', ['lamps', 'widgets/countdown'], function(lamps, Countdown){
     attach(lamps.stopAnimation, ['#hotspot-2611337']);
 
     /*
+     * Google API
+     */
+    gAuth.isAuthenticated()
+        .then(
+            function(){
+                // hide google loggin button?
+            },
+            function(){
+                gAuth.login().then(
+                    function(){
+
+                    });
+            });
+
+    /*
      * Countdown
      */
-    new Countdown(document.getElementById('hotspot-2613307'));
+    var countdown = new Countdown(document.getElementById('hotspot-2613307'));
+
+    // Very Hacky... very late :P
+    // HACK Wait for google API
+    setTimeout(
+        function setCountdownToNextEvent(){
+            gCal.getNextEvent()
+                .then(function(nextEvent){
+                    if(nextEvent){
+                        var date = new Date(nextEvent.start.dateTime);
+
+                        // TODO: remove the time to get there
+                        // date.setTime(date.getTime() - (60000 + 30000));
+                        countdown.start(date)
+                            .then(
+                                function(){
+                                    lamps.startAnimation();
+                                    // TODO: We need a screen to dismiss the alarm
+                                    window.location.href = window.location.href.replace(/#\d*$/, '#2590601');
+                                    setCountdownToNextEvent();
+                                });
+                    }
+                });
+        }, 2000);
 
     /*
      * Calendar iframe
