@@ -21,9 +21,9 @@
   "homepage": "https://github.com/baleato/eneco-hackathon",
   "devDependencies": {
     "jasmine-core": "^2.2.0",
-    "karma": "^0.12.31",
-    "karma-jasmine": "^0.3.5",
-    "karma-requirejs": "^0.2.2",
+    "karma": "^1.3.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-requirejs": "^1.1.0",
     "requirejs": "^2.1.16"
   }
 }
